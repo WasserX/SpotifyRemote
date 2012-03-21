@@ -84,7 +84,7 @@ public class SpotifyRemote extends Activity {
     	switch(item.getItemId()){
     	case OPTIONS_ID:
     		// calling the new Activity
-    		Options();
+    		options();
     		return true;
     	}
         return super.onOptionsItemSelected(item);
@@ -136,7 +136,7 @@ public class SpotifyRemote extends Activity {
 	}
 	
 	// Calling the new Activity to get the options screen
-	private void Options(){
+	private void options(){
 		Intent i = new Intent(this, SpotifyOptions.class);
 		startActivityForResult(i, 0);
 	}
