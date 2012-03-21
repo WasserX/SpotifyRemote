@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">SpotifyController</string>
+    <string name="app_name">SpotifyRemote</string>
     <string name="title">Titre : </string>
     <string name="artist">Artist : </string>
     <string name="album">Album : </string>
