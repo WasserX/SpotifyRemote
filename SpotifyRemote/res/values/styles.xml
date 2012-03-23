@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Text">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item> 
+    </style>
+    <style name="BlockText" parent="Text">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:paddingLeft">20dip</item>
+        <item name="android:paddingBottom">5dip</item>
+    </style>
+    <style name="DataText" parent="BlockText">
+        <item name="android:textSize">20sp</item>
+        <item name="android:paddingBottom">2dip</item>
+    </style>
+    
+</resources>
