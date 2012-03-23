@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">SpotifyController</string>
-    <string name="title">Titre : </string>
-    <string name="artist">Artist : </string>
-    <string name="album">Album : </string>
+    <string name="app_name">SpotifyRemote</string>
+    <string name="title">Titre</string>
+    <string name="artist">Artist</string>
+    <string name="album">Album</string>
     
     <string name="options">Paramètres</string>
     <string name="optionstext">Options Text</string>
     <string name="optionstitle">Paramètres</string>
+    
+    <!-- color name="light_green">#67E667</color-->
+    <color name="light_green">#B0FEA8</color>
+    <color name="dark_green">#00CC00</color>
 
 </resources>

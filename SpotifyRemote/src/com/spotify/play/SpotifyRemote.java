@@ -4,11 +4,13 @@ import com.spotify.options.SpotifyOptions;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class SpotifyRemote extends Activity {
@@ -34,13 +36,33 @@ public class SpotifyRemote extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.play);
         
+     // for changing fonts
+        Typeface tfFixedText = Typeface.createFromAsset(getAssets(),
+                "fonts/GOODTIME.TTF");
+        Typeface tfText = Typeface.createFromAsset(getAssets(),
+                "fonts/Roboto-Regular.ttf");
+        
         artist = (TextView) findViewById(R.id.artist_value);
         album = (TextView) findViewById(R.id.album_value);
         song = (TextView) findViewById(R.id.title_value);
         
+        artist.setTypeface(tfText);
+        album.setTypeface(tfText);
+        song.setTypeface(tfText);
+        
         rewind = (ImageView) findViewById(R.id.rewind);
         fastForward = (ImageView) findViewById(R.id.fast_forward);
         playPause = (ImageView) findViewById(R.id.play_pause);
+        
+        
+        
+        TextView title = (TextView) findViewById(R.id.title);
+        TextView artist_ = (TextView) findViewById(R.id.artist);
+        TextView album_ = (TextView) findViewById(R.id.album);
+        title.setTypeface(tfFixedText);
+        artist_.setTypeface(tfFixedText);
+        album_.setTypeface(tfFixedText);
+
         
         // adding listener to image
         rewind.setOnClickListener(new View.OnClickListener() {
@@ -84,7 +106,7 @@ public class SpotifyRemote extends Activity {
     	switch(item.getItemId()){
     	case OPTIONS_ID:
     		// calling the new Activity
-    		Options();
+    		options();
     		return true;
     	}
         return super.onOptionsItemSelected(item);
@@ -116,14 +138,14 @@ public class SpotifyRemote extends Activity {
 	private void onPlayPause(){
 		// the user clicks on pause
 		if(SpotifyRemote.PLAY_STATE){
-			playPause.setImageResource(R.drawable.play_white);
+			playPause.setImageResource(R.drawable.play);
 			SpotifyRemote.currentState(false);
 			//other actions
 			/*..........*/
 		}
 		// the user clicks on play
 		else {
-			playPause.setImageResource(R.drawable.pause_white);
+			playPause.setImageResource(R.drawable.pause);
 			SpotifyRemote.currentState(true);
 			// other actions
 			/*..........*/
@@ -136,7 +158,7 @@ public class SpotifyRemote extends Activity {
 	}
 	
 	// Calling the new Activity to get the options screen
-	private void Options(){
+	private void options(){
 		Intent i = new Intent(this, SpotifyOptions.class);
 		startActivityForResult(i, 0);
 	}
