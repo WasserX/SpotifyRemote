@@ -2,11 +2,11 @@
 <resources>
 
     <string name="app_name">SpotifyRemote</string>
-    <string name="title">Titre</string>
+    <string name="title">Title</string>
     <string name="artist">Artist</string>
     <string name="album">Album</string>
     
-    <string name="options">Paramètres</string>
+    <string name="options">Options</string>
     <string name="optionstext">Options Text</string>
     <string name="optionstitle">Paramètres</string>
     
