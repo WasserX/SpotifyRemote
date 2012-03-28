@@ -70,15 +70,21 @@ public class MainActivity extends PlayerActivity implements OnClickListener {
 
 		// Server Connection
 		socket = SocketConnection.getClient();
-		new StateReceiver().execute(); // Receives data from server
-										// asynchronously
+		// Receive data from server asynchronously
+		new StateReceiver().execute();
 		socket.sendCommand(Commands.GET_TRACK);
 	}
 
 	@Override
 	public void changeState(PlayerProperties state) {
-		setMetadata(state.getTrack());
-		setStatus(state.getStatus());
+		if (state != null) {
+			if (state.getStatus() != null)
+				setStatus(state.getStatus());
+			if (state.getStatus() == Status.STOPPED)
+				setMetadata(new Track());
+			else if (state.getTrack() != null)
+				setMetadata(state.getTrack());
+		}
 	}
 
 	public void setMetadata(Track track) {
