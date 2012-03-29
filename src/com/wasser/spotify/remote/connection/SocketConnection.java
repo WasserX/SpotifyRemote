@@ -26,7 +26,6 @@ public class SocketConnection {
 
 	private SocketConnection() {
 		super();
-		connect();
 	}
 
 	/**

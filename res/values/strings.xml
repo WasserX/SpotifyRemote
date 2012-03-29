@@ -6,12 +6,15 @@
     <string name="artist">Artist</string>
     <string name="album">Album</string>
     
-    <string name="options">Options</string>
-    <string name="optionstext">Options Text</string>
-    <string name="optionstitle">Paramètres</string>
-    
     <!-- color name="light_green">#67E667</color-->
     <color name="light_green">#B0FEA8</color>
     <color name="dark_green">#00CC00</color>
+    <string name="host">Host</string>
+    <string name="host_value">192.168.0.100</string>
+    <string name="port">Port</string>
+    <string name="port_value">15000</string>
+    <string name="cancel">Cancel</string>
+    <string name="accept">Accept</string>
+    <string name="connFail">Error connecting to server</string>
 
 </resources>
