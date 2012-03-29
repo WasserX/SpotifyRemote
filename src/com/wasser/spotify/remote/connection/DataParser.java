@@ -49,7 +49,7 @@ public class DataParser {
 			JSONObject jsonTrack = json.getJSONObject("metadata");
 			track.setAlbum(jsonTrack.getString("album"));
 			track.setArtist(jsonTrack.getString("artist"));
-			track.setImgUrl(jsonTrack.getString("artUrl"));
+			track.setCoverArt(jsonTrack.getString("artUrl"));
 			track.setTitle(jsonTrack.getString("title"));
 			track.setLength(jsonTrack.getInt("length"));
 		} catch (JSONException e) {

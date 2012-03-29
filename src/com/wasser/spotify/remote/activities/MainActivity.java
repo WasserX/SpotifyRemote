@@ -21,6 +21,7 @@ public class MainActivity extends PlayerActivity implements OnClickListener {
 	private TextView artistField;
 	private TextView albumField;
 	private TextView titleField;
+	private ImageView coverArt;
 
 	// Controls
 	private ImageView prevButton;
@@ -45,6 +46,7 @@ public class MainActivity extends PlayerActivity implements OnClickListener {
 		artistField = (TextView) findViewById(R.id.artist_value);
 		albumField = (TextView) findViewById(R.id.album_value);
 		titleField = (TextView) findViewById(R.id.title_value);
+		coverArt = (ImageView) findViewById(R.id.cover);
 
 		artistField.setTypeface(tfText);
 		albumField.setTypeface(tfText);
@@ -91,9 +93,11 @@ public class MainActivity extends PlayerActivity implements OnClickListener {
 		if (track == null) {
 			track = new Track();
 		}
+		titleField.setText(track.getTitle());
 		artistField.setText(track.getArtist());
 		albumField.setText(track.getAlbum());
-		titleField.setText(track.getTitle());
+		if (track.getCoverArt() != null)
+			coverArt.setImageBitmap(track.getCoverArt());
 	}
 
 	public void setStatus(Status newStatus) {
