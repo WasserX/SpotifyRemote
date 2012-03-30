@@ -10,11 +10,13 @@
     <color name="light_green">#B0FEA8</color>
     <color name="dark_green">#00CC00</color>
     <string name="host">Host</string>
-    <string name="host_value">192.168.0.100</string>
     <string name="port">Port</string>
-    <string name="port_value">15000</string>
     <string name="cancel">Cancel</string>
     <string name="accept">Accept</string>
     <string name="connFail">Error connecting to server</string>
+    <string name="connectionCategory">Connection</string>
+    <string name="hostExplanation">Address of the SpotifyServer</string>
+    <string name="portExplanation">SpotifyServer\'s port</string>
+    <string name="errorTitle">Error</string>
 
 </resources>

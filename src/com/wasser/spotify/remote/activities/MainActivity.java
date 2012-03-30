@@ -1,5 +1,6 @@
 package com.wasser.spotify.remote.activities;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,6 +18,12 @@ import com.wasser.spotify.remote.player.Track;
 
 public class MainActivity extends PlayerActivity implements OnClickListener {
 
+	private static int REQ_CODE_PREF = 0;
+
+	private Status currentStatus = Status.STOPPED;
+	SocketConnection socket = SocketConnection.getClient();
+	private int retries = 0; // How many times have we failed to connect
+
 	// Fields with Track info
 	private TextView artistField;
 	private TextView albumField;
@@ -27,9 +34,6 @@ public class MainActivity extends PlayerActivity implements OnClickListener {
 	private ImageView prevButton;
 	private ImageView nextButton;
 	private ImageView playPauseButton;
-
-	private Status currentStatus = Status.STOPPED;
-	private SocketConnection socket = null;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -69,12 +73,9 @@ public class MainActivity extends PlayerActivity implements OnClickListener {
 		prevButton.setOnClickListener(this);
 		nextButton.setOnClickListener(this);
 		playPauseButton.setOnClickListener(this);
-
-		// Server Connection
-		socket = SocketConnection.getClient();
-		// Receive data from server asynchronously
-		new StateReceiver().execute();
-		socket.sendCommand(Commands.GET_TRACK);
+		
+		//Connect to server and starts the data transferrer
+		new ConnectToServer().execute();
 	}
 
 	@Override
@@ -131,6 +132,16 @@ public class MainActivity extends PlayerActivity implements OnClickListener {
 		}
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == RESULT_OK && requestCode == REQ_CODE_PREF) {
+			if (data.hasExtra(PreferenceActivity.RETRIES)) {
+				retries = data.getIntExtra(PreferenceActivity.RETRIES, retries);
+			}
+			new ConnectToServer().execute(); //Connect to server and start data transferrer
+		}
+	}
+
 	/**
 	 * Gets States from the server asynchronously during the whole duration of
 	 * the activity.
@@ -138,10 +149,12 @@ public class MainActivity extends PlayerActivity implements OnClickListener {
 	 * @author wasser
 	 * 
 	 */
-	private class StateReceiver extends AsyncTask<Void, PlayerProperties, Void> {
+	private class DataTransferrer extends
+			AsyncTask<Void, PlayerProperties, Void> {
 
 		@Override
 		protected Void doInBackground(Void... params) {
+			socket.sendCommand(Commands.GET_TRACK);
 			while (!this.isCancelled() && !socket.isClosed()) {
 				PlayerProperties receivedState = socket.receiveState();
 				publishProgress(new PlayerProperties[] { receivedState });
@@ -154,5 +167,30 @@ public class MainActivity extends PlayerActivity implements OnClickListener {
 			changeState(values[0]);
 		}
 
+	}
+
+	private class ConnectToServer extends AsyncTask<Void, Void, Boolean> {
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+			if(socket.isClosed())
+				socket.connect();
+			return !socket.isClosed();
+		}
+
+		@Override
+		protected void onPostExecute(Boolean connected) {
+			super.onPostExecute(connected);
+			if (connected) {
+				// Receive data from server asynchronously
+				new DataTransferrer().execute();
+
+			} else {
+				Intent intent = new Intent(getApplicationContext(),
+						PreferenceActivity.class);
+				intent.putExtra(PreferenceActivity.RETRIES, ++retries);
+				startActivityForResult(intent, REQ_CODE_PREF);
+			}
+		}
 	}
 }
